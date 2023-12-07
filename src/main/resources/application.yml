@@ -38,3 +38,5 @@ spring:
   main:
     allow-circular-references: true
     allow-bean-definition-overriding: true
+jwt:
+  secret: 5b37a4ee246a2b4e613d1112f8932d88a428825e467e71728191a43e00d6b4b3
