@@ -14,7 +14,7 @@ management:
           - "*"
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/pracloom
+    url: jdbc:postgresql://localhost:5432/pracloom?currentSchema=pracloom-1001
     username: postgres
     password: 1234
     driver-class-name: org.postgresql.Driver
@@ -23,6 +23,9 @@ spring:
     properties:
       hibernate:
         format_sql: true
+    hibernate:
+      ddl-auto: update
+
   flyway:
     url: "jdbc:postgresql://localhost:5432/pracloom"
     schemas: pracloom-1001
@@ -30,3 +33,10 @@ spring:
     password: 1234
     driver-class-name: org.postgresql.Driver
     enabled: true
+    baseline-on-migrate: true
+
+  main:
+    allow-circular-references: true
+    allow-bean-definition-overriding: true
+jwt:
+  secret: 5b37a4ee246a2b4e613d1112f8932d88a428825e467e71728191a43e00d6b4b3

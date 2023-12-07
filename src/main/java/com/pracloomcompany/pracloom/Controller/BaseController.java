@@ -16,6 +16,6 @@ public class BaseController {
     @ResponseStatus
     public ResponseEntity<String> handleException(Exception ex, HttpServletRequest request) {
         log.error("Exception occurred in {} {}: {}", request.getMethod(), request.getRequestURI(), ex.getMessage(), ex);
-        return ResponseEntity.status(500).body("Internal Server Error");
+        return ResponseEntity.status(500).body(ex.getMessage());
     }
 }
