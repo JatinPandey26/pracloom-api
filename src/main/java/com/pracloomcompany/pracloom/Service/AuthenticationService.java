@@ -5,11 +5,13 @@ import com.pracloomcompany.pracloom.Mapper.CustomerMapper;
 import com.pracloomcompany.pracloom.Repository.CustomerRepository;
 import com.pracloomcompany.pracloom.dto.AuthenticationRequest;
 import com.pracloomcompany.pracloom.dto.AuthenticationResponse;
+import com.pracloomcompany.pracloom.dto.CustomerDTO;
 import com.pracloomcompany.pracloom.dto.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -56,5 +58,12 @@ public class AuthenticationService {
         Customer customer = this.customerRepository.findByEmail(request.getEmail()).orElseThrow(() -> new Exception("user not found with email : " + request.getEmail()));
         String jwtToken = this.jwtService.generateJwtToken(customer);
         return new AuthenticationResponse(jwtToken,"success");
+    }
+
+    public CustomerDTO getProfile() {
+
+        Customer customer = (Customer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        return this.customerMapper.toDto(customer);
     }
 }

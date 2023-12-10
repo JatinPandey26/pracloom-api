@@ -26,6 +26,13 @@ spring:
     hibernate:
       ddl-auto: update
 
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 215MB
+      enabled: true
+      file-size-threshold: 2KB
+
   flyway:
     url: "jdbc:postgresql://localhost:5432/pracloom"
     schemas: pracloom-1001
@@ -33,10 +40,18 @@ spring:
     password: 1234
     driver-class-name: org.postgresql.Driver
     enabled: true
-    baseline-on-migrate: true
 
-  main:
-    allow-circular-references: true
-    allow-bean-definition-overriding: true
+
+
 jwt:
   secret: 5b37a4ee246a2b4e613d1112f8932d88a428825e467e71728191a43e00d6b4b3
+Client:
+  origin: http://localhost:5173
+
+cloudinary:
+  cloud_name: dx8ncfjl3
+  api_key: 313323868758128
+  api_secret: b2aP0YvPSCSfID2dR891Z4zrx9Y
+  secure: true
+tenant:
+  default: pracloom-1001

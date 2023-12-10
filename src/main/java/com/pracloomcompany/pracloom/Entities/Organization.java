@@ -17,6 +17,7 @@ public class Organization {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private String tenant_id;
 
     @NotBlank(message = "Organization name is required")
     private String name;
@@ -32,6 +33,7 @@ public class Organization {
     private String logo_url;
     private String logo_secret;
 
+
     @ManyToOne
     private Customer initiated_by;
 
@@ -39,8 +41,11 @@ public class Organization {
     @Column(name = "creation_date")
     private Date creationDate;
 
+    private boolean paid;
+
     @PrePersist
     public void prePersist() {
         this.creationDate = new Date();
+        this.paid = false;
     }
 }

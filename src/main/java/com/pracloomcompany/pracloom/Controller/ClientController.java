@@ -4,12 +4,15 @@ import com.pracloomcompany.pracloom.Entities.Organization;
 import com.pracloomcompany.pracloom.Mapper.OrganizationMapper;
 import com.pracloomcompany.pracloom.Service.ClientService;
 import com.pracloomcompany.pracloom.dto.OrganizationDTO;
+import com.pracloomcompany.pracloom.dto.OrganizationResponse;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -22,10 +25,10 @@ public class ClientController extends BaseController {
     private final ClientService clientService;
     private final EntityManager entityManager;
     private final OrganizationMapper organizationMapper;
-    @PostMapping("/new")
-    public ResponseEntity<String> createOrganization(@RequestBody OrganizationDTO organizationDTO){
-        this.clientService.createOrganization(organizationDTO);
-        return ResponseEntity.ok("Organization created successfully");
+    @PostMapping(value = "/new",consumes = { MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<OrganizationResponse> createOrganization(@ModelAttribute OrganizationDTO organizationDTO) throws IOException {
+        OrganizationResponse res =  this.clientService.createOrganization(organizationDTO);
+        return ResponseEntity.ok(res);
     }
 
     @GetMapping("/{id}")
@@ -61,6 +64,14 @@ public class ClientController extends BaseController {
         List<Organization> organizations = this.clientService.getAllOrganizations();
         return ResponseEntity.ok(this.organizationMapper.toDtoList(organizations));
     }
+
+    @GetMapping("/notPaid")
+    public ResponseEntity<List<Organization>> getAllOrganizationsWhichAreNotPaidYet(){
+        List<Organization> organizations = this.clientService.getAllOrganizationsWhichAreNotPaidYet();
+        return ResponseEntity.ok(organizations);
+
+    }
+
 
 
 
