@@ -29,26 +29,4 @@ public class HibernateConfig {
         return new HibernateJpaVendorAdapter();
     }
 
-    @Bean
-    LocalContainerEntityManagerFactoryBean entityManagerFactory(
-            DataSource dataSource,
-            MultiTenantConnectionProvider multiTenantConnectionProviderImpl,
-            CurrentTenantIdentifierResolver currentTenantIdentifierResolverImpl
-    ) {
-
-        Map<String, Object> jpaPropertiesMap = new HashMap<>(jpaProperties.getProperties());
-        jpaPropertiesMap.put("hibernate.multiTenancy", "SCHEMA");
-        jpaPropertiesMap.put(Environment.MULTI_TENANT_IDENTIFIER_RESOLVER, currentTenantIdentifierResolverImpl);
-        jpaPropertiesMap.put(Environment.MULTI_TENANT_CONNECTION_PROVIDER, multiTenantConnectionProviderImpl);
-        jpaPropertiesMap.put(Environment.FORMAT_SQL, true);
-        jpaPropertiesMap.put(Environment.SHOW_SQL, true);
-
-        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        log.info("datasource : {}",dataSource);
-        em.setDataSource(dataSource);
-        em.setPackagesToScan("com.pracloomcompany");
-        em.setJpaVendorAdapter(this.jpaVendorAdapter());
-        em.setJpaPropertyMap(jpaPropertiesMap);
-        return em;
-    }
 }

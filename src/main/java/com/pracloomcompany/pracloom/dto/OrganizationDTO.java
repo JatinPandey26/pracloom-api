@@ -2,6 +2,8 @@ package com.pracloomcompany.pracloom.dto;
 
 import com.pracloomcompany.pracloom.Entities.Customer;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
+
 
 @Data
 public class OrganizationDTO {
@@ -9,7 +11,5 @@ public class OrganizationDTO {
         private String email;
         private String number;
         private String address;
-        private String logo_url;
-        private String logo_secret;
-        private Customer initiated_by;
+        private MultipartFile logo;
 }

@@ -34,9 +34,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter  {
         final String authHeader = request.getHeader("Authorization");
         final String jwtToken;
         final String customerEmail;
+
         HttpServletRequest req = (HttpServletRequest) request;
         String tenantName = req.getHeader("X-TenantID");
         TenantContext.setCurrentTenant(tenantName);
+
         if(authHeader == null || !authHeader.startsWith("Bearer ")){
             log.info("Authheader not found");
             filterChain.doFilter(request,response);
@@ -44,7 +46,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter  {
         }
 
         jwtToken = authHeader.substring(7);
-        log.info("jwtToken : {}",jwtToken);
+
+
+        if(jwtToken.equals("null")){
+            log.info("jwtToken is empty");
+            filterChain.doFilter(request,response);
+            return;
+        }
+
 
         customerEmail = jwtService.extractCustomerEmail(jwtToken);
 
@@ -65,6 +74,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter  {
                 );
 
                 SecurityContextHolder.getContext().setAuthentication(authToken);
+
+
+                // resolve tenant after authentication
+                HttpServletRequest req = (HttpServletRequest) request;
+                String tenantName = req.getHeader("X-TenantID");
+                TenantContext.setCurrentTenant(tenantName);
+
+
                 filterChain.doFilter(request,response);
             }
             else  {
