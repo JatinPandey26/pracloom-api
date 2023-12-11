@@ -1,4 +1,5 @@
 
+
 CREATE SEQUENCE IF NOT EXISTS "pracloom-1001".organization_tb_id_seq
     INCREMENT 1
     START 1
@@ -21,6 +22,7 @@ CREATE TABLE IF NOT EXISTS "pracloom-1001".organization_tb
     logo_url character varying(255) COLLATE pg_catalog."default",
     "number" character varying(255) COLLATE pg_catalog."default",
     paid boolean,
+
     initiated_by_id integer,
     CONSTRAINT organization_tb_pkey PRIMARY KEY (id),
     CONSTRAINT fkmj6ejv76vjlbw6wdb73boakai FOREIGN KEY (initiated_by_id)

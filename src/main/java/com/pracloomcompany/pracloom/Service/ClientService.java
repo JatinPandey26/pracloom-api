@@ -1,5 +1,6 @@
 package com.pracloomcompany.pracloom.Service;
 
+
 import com.pracloomcompany.pracloom.Entities.Customer;
 import com.pracloomcompany.pracloom.Entities.Organization;
 import com.pracloomcompany.pracloom.Interceptor.TenantContext;
@@ -24,6 +25,7 @@ public class ClientService {
 
     private final OrganizationRepository organizationRepository;
     private final OrganizationMapper organizationMapper;
+
     private final CloudnaryService cloudnaryService;
     private final EntityManager entityManager;
 
@@ -44,6 +46,7 @@ public class ClientService {
         Organization savedOrganization =  organizationRepository.save(organization);
         log.info("organization saved with id : {}" , savedOrganization.getId());
         return this.organizationMapper.toResponse(savedOrganization);
+
     }
 
     public OrganizationDTO getOrganization(Integer id){
@@ -65,6 +68,7 @@ public class ClientService {
     public List<Organization> getAllOrganizations() {
         return this.organizationRepository.findAll();
     }
+
 
     public List<Organization> getAllOrganizationsWhichAreNotPaidYet() {
         String query = "select * from \"pracloom-1001\".organization_tb where initiated_by_id = :customer_id and paid = :paid_status ;";

@@ -4,6 +4,7 @@ import com.pracloomcompany.pracloom.Entities.Customer;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
+
 @Data
 public class OrganizationDTO {
         private String name;

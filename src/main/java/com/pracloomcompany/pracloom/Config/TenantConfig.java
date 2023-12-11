@@ -1,7 +1,9 @@
 package com.pracloomcompany.pracloom.Config;
 
 import com.pracloomcompany.pracloom.Interceptor.RequestInterceptor;
+
 import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -9,8 +11,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class TenantConfig implements WebMvcConfigurer {
 
+
     @Value("${Client.origin}")
     private String orgin;
+
 
     @Override
     public void addInterceptors(InterceptorRegistry registry)
@@ -23,4 +27,5 @@ public class TenantConfig implements WebMvcConfigurer {
         registry.addMapping("/**").allowedOrigins(orgin).allowedMethods("*").allowedHeaders("Authorization", "Content-Type","X-TenantID")
                 .allowCredentials(true);
     }
+
 }

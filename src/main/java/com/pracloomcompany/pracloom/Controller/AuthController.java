@@ -3,11 +3,21 @@ package com.pracloomcompany.pracloom.Controller;
 import com.pracloomcompany.pracloom.Service.AuthenticationService;
 import com.pracloomcompany.pracloom.dto.AuthenticationRequest;
 import com.pracloomcompany.pracloom.dto.AuthenticationResponse;
+
 import com.pracloomcompany.pracloom.dto.CustomerDTO;
 import com.pracloomcompany.pracloom.dto.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.pracloomcompany.pracloom.dto.RegisterRequest;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -40,5 +50,6 @@ public class AuthController extends BaseController {
 
         return ResponseEntity.ok(authService.getProfile());
     }
+
 
 }

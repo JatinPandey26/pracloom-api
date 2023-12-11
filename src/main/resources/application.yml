@@ -26,6 +26,7 @@ spring:
     hibernate:
       ddl-auto: update
 
+
   servlet:
     multipart:
       max-file-size: 200MB
@@ -55,3 +56,4 @@ cloudinary:
   secure: true
 tenant:
   default: pracloom-1001
+
